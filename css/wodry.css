@@ -1,4 +1,4 @@
-.adjecting {
+.wodry-flipping {
     display: inline-block;
     position: relative;
     -webkit-transform-style: preserve-3d;
@@ -8,7 +8,7 @@
     transform-style: preserve-3d;
     -webkit-transform-origin-x: 50%;
 }
-.adjecting .front-face, .adjecting .back-face {
+.wodry-flipping .front-face, .wodry-flipping .back-face {
     display: inline-block;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
@@ -16,9 +16,9 @@
     -o-backface-visibility: hidden;
     backface-visibility: hidden;
 }
-.adjecting .front-face {
+.wodry-flipping .front-face {
     position: absolute;
 }
-.adjecting .back-face {
+.wodry-flipping .back-face {
     position: relative;
 }
