@@ -103,8 +103,8 @@ $.fn.extend
                 $ ".#{container.context.className} .back-face"
                     .css prefixer(["transform"], [animation.back_transform])
 
-                container.wrapInner "<span class='adjecting' />"
-                    .find(".adjecting").hide().show().css prefixer(["transform","transition"],[animation.action.transform,animation.action.transition])
+                container.wrapInner "<span class='wodry-flipping' />"
+                    .find(".wodry-flipping").hide().show().css prefixer(["transform","transition"],[animation.action.transform,animation.action.transition])
 
                 if animation.isCoplex
                     setTimeout ->

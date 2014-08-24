@@ -146,7 +146,7 @@
           $("." + container.context.className + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
           $("<span class='back-face'>" + nextText + "</span>").appendTo(container);
           $("." + container.context.className + " .back-face").css(prefixer(["transform"], [animation.back_transform]));
-          container.wrapInner("<span class='adjecting' />").find(".adjecting").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
+          container.wrapInner("<span class='wodry-flipping' />").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
           if (animation.isCoplex) {
             return setTimeout(function() {
               return $("." + container.context.className + " .front-face").remove();

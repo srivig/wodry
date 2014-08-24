@@ -15,19 +15,11 @@ module.exports = function(grunt) {
         watch: {
             dev: {
                 files: ['src/*', 'test/*.coffee'],
-                tasks: ['coffee', 'connect:livereload', 'notify:test']
+                tasks: ['coffee']
             }
         },
         clean: {
             target: ['dist']
-        },
-        notify: {
-            test: {
-                options: {
-                    title: 'Exam.js',
-                    message: 'Tests passed!'
-                }
-            }
         },
         coffee: {
             compile: {
