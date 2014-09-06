@@ -188,6 +188,12 @@ pre{
     font-size: 1em;
     padding: 10px;
 }
+
+.bold-span {
+    font-weight: bold;
+    color: #b3e4ef;
+}
+
 .github {
     position: absolute;
     top: 0;
