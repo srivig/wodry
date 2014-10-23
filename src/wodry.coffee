@@ -9,9 +9,10 @@ $.fn.extend
         settings.animation ?= 'rotateY'
         settings.callback ?= ->
         settings.shift ?= {}
-        settings.shift.x ?= 0;
-        settings.shift.y ?= 0;
-        settings.shift.z ?= 0;
+        settings.shift.x ?= 0
+        settings.shift.y ?= 0
+        settings.shift.z ?= 0
+        settings.styles ?= []
 
         animations =
             rotateY:
@@ -74,6 +75,10 @@ $.fn.extend
             array = []
             $.each(flip_container.text().split(settings.separator), (key, value) -> array.push value)
             flip_container.text array[0]
+            style_index = 0
+
+            next_style_index = ->
+               (style_index++) % settings.styles.length 
 
             prefixer = (properties, values) ->
                 result = {}
@@ -93,6 +98,12 @@ $.fn.extend
                     result
 
             animate = (animation,container,currentText, nextText) ->
+                front_style = ".front-face "
+                back_style = ".back-face "
+                if settings.styles.length > 0
+                    back_style += settings.styles[style_index]
+                    front_style += settings.styles[next_style_index()]
+
                 container.html ""
                 $ "<span class='front-face'>#{currentText}</span>"
                     .appendTo container

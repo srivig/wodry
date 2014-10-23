@@ -38,6 +38,9 @@
       if ((_base2 = settings.shift).z == null) {
         _base2.z = 0;
       }
+      if (settings.styles == null) {
+        settings.styles = [];
+      }
       animations = {
         rotateY: {
           front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px)",
@@ -111,13 +114,17 @@
         }
       };
       return this.each(function() {
-        var animate, array, flip, flip_container, prefixer;
+        var animate, array, flip, flip_container, next_style_index, prefixer, style_index;
         flip_container = $(this);
         array = [];
         $.each(flip_container.text().split(settings.separator), function(key, value) {
           return array.push(value);
         });
         flip_container.text(array[0]);
+        style_index = 0;
+        next_style_index = function() {
+          return (style_index++) % settings.styles.length;
+        };
         prefixer = function(properties, values) {
           var i, moz, o, propHash, property, result, value, webkit, _i, _len, _ref;
           result = {};
@@ -141,6 +148,13 @@
           }
         };
         animate = function(animation, container, currentText, nextText) {
+          var back_style, front_style;
+          front_style = ".front-face ";
+          back_style = ".back-face ";
+          if (settings.styles.length > 0) {
+            back_style += settings.styles[style_index];
+            front_style += settings.styles[next_style_index()];
+          }
           container.html("");
           $("<span class='front-face'>" + currentText + "</span>").appendTo(container);
           $("." + container.context.className + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
