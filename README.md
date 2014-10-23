@@ -14,7 +14,7 @@ bower install wodry
 
 ##How it works
 
-In the first place you need to include wodry.css and wodry.js (wodry.min.js) files then create html tag with content that will flip/rotate (like this):
+In the first place you need to include **wodry.css** and **wodry.js** (or **wodry.min.js**) files then create html tag with content that will flip/rotate (like this):
 
 ```html
 
