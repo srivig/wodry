@@ -114,17 +114,23 @@
         }
       };
       return this.each(function() {
-        var animate, array, flip, flip_container, next_style_index, prefixer, style_index;
+        var animate, array, back_style, flip, flip_container, front_style, next_style_index, prefixer, style_index;
         flip_container = $(this);
         array = [];
         $.each(flip_container.text().split(settings.separator), function(key, value) {
           return array.push(value);
         });
-        flip_container.text(array[0]);
         style_index = 0;
+        if (settings.styles.length > 0) {
+          flip_container.html("<span class='" + settings.styles[0] + "'>" + array[0] + "</span>");
+        } else {
+          flip_container.text(array[0]);
+        }
         next_style_index = function() {
-          return (style_index++) % settings.styles.length;
+          return style_index = (style_index + 1) % settings.styles.length;
         };
+        front_style = "front-face";
+        back_style = "back-face";
         prefixer = function(properties, values) {
           var i, moz, o, propHash, property, result, value, webkit, _i, _len, _ref;
           result = {};
@@ -148,17 +154,10 @@
           }
         };
         animate = function(animation, container, currentText, nextText) {
-          var back_style, front_style;
-          front_style = ".front-face ";
-          back_style = ".back-face ";
-          if (settings.styles.length > 0) {
-            back_style += settings.styles[style_index];
-            front_style += settings.styles[next_style_index()];
-          }
           container.html("");
-          $("<span class='front-face'>" + currentText + "</span>").appendTo(container);
+          $("<span class='" + front_style + "'>" + currentText + "</span>").appendTo(container);
           $("." + container.context.className + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
-          $("<span class='back-face'>" + nextText + "</span>").appendTo(container);
+          $("<span class='" + back_style + "'>" + nextText + "</span>").appendTo(container);
           $("." + container.context.className + " .back-face").css(prefixer(["transform"], [animation.back_transform]));
           container.wrapInner("<span class='wodry-flipping' />").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
           if (animation.isCoplex) {
@@ -169,6 +168,10 @@
         };
         flip = function() {
           var back_text_index, front_text;
+          if (settings.styles.length > 0) {
+            front_style = "front-face " + settings.styles[style_index];
+            back_style = "back-face " + settings.styles[next_style_index()];
+          }
           if (flip_container.find(".back-face").length > 0) {
             flip_container.html(flip_container.find(".back-face").html());
           }
