@@ -46,6 +46,7 @@ Settings object has the following fields:
 - **animation**: sets a type of animation. **Default value:** 'rotateY';
 - **callback**: sets a callback that calls on each iteration. **Default value:** an empty function;
 - **shift**: specify the X,Y and Z values of shifting. **Default value:** {x:0,y:0,z:0};
+- **styles**: set an array of styles (for example: ['style1','style2','style3']). It will change a style of a wodry tag on each flip one by one;
 
 List of animations:
 
