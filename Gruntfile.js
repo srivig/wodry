@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 mangle: true,
-                compress: true,
+                compress: {},
                 sourceMap: 'dist/wodry.js.map',
                 banner: '/* Sergey Golovin 2014 golovim@gmail.com */\n'
             },
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                 files: {
                     'dist/wodry.js': ['src/*.coffee']
                 }
-            },
+            }
         }
     });
 
