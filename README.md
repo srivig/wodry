@@ -38,6 +38,19 @@ $('.wodry').wodry({
 });
 ```
 
+If you want to stop flipping, you need to know that right after initialization of your element wodry.js will return you interval ids for every element was process, so you will have ability to clear interval thereby stopping wordy flipping execution:
+
+```javascript
+var intervalIds = $('.wodry').wodry({
+    //settings
+});
+
+// to clear first element flipping just use:
+if (intervalIds != null) {
+    clearInterval(intervalIds[0]);
+}
+```
+
 Settings object has the following fields:
 
 - **separator**: sets a custom separator between flipped text. **Default value:** "|";
