@@ -70,7 +70,7 @@ $.fn.extend
                     transform: " rotate3d(40,100,80,180deg)"
                     transition:" #{settings.animationDuration}ms"
 
-        @each ->
+        @map ->
             flip_container = $(this)
             array = []
             $.each(flip_container.text().split(settings.separator), (key, value) -> array.push value)

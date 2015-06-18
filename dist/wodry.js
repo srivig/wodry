@@ -113,7 +113,7 @@
           }
         }
       };
-      return this.each(function() {
+      return this.map(function() {
         var animate, array, back_style, flip, flip_container, front_style, next_style_index, prefixer, style_index;
         flip_container = $(this);
         array = [];
