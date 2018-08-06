@@ -156,13 +156,13 @@
         animate = function(animation, container, currentText, nextText) {
           container.html("");
           $("<span class='" + front_style + "'>" + currentText + "</span>").appendTo(container);
-          $("." + container.context.className + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
+          $("." + (container.attr("class")) + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
           $("<span class='" + back_style + "'>" + nextText + "</span>").appendTo(container);
-          $("." + container.context.className + " .back-face").css(prefixer(["transform"], [animation.back_transform]));
+          $("." + (container.attr("class")) + " .back-face").css(prefixer(["transform"], [animation.back_transform]));
           container.wrapInner("<span class='wodry-flipping' />").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
           if (animation.isCoplex) {
             return setTimeout(function() {
-              return $("." + container.context.className + " .front-face").remove();
+              return $("." + (container.attr("class")) + " .front-face").remove();
             }, 1);
           }
         };

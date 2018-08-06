@@ -82,7 +82,7 @@ $.fn.extend
                 flip_container.text array[0]
 
             next_style_index = ->
-                style_index = (style_index + 1) % settings.styles.length 
+                style_index = (style_index + 1) % settings.styles.length
 
             front_style = "front-face"
             back_style = "back-face"
@@ -90,13 +90,13 @@ $.fn.extend
             prefixer = (properties, values) ->
                 result = {}
                 propHash = {}
-                
+
                 for property in properties
                     i = properties.indexOf property
                     propHash[property] = values[i]
 
-                if properties.length is values.length 
-                    for own property, value of propHash 
+                if properties.length is values.length
+                    for own property, value of propHash
                         [webkit, moz, o] = ["-webkit-#{property}","-moz-#{property}","-o-#{property}"]
                         result[webkit] = value
                         result[moz] = value
@@ -108,11 +108,11 @@ $.fn.extend
                 container.html ""
                 $ "<span class='#{front_style}'>#{currentText}</span>"
                     .appendTo container
-                $ ".#{container.context.className} .front-face"
+                $ ".#{container.attr("class")} .front-face"
                     .css prefixer(["transform"],[animation.front_transform])
                 $ "<span class='#{back_style}'>#{nextText}</span>"
                     .appendTo container
-                $ ".#{container.context.className} .back-face"
+                $ ".#{container.attr("class")} .back-face"
                     .css prefixer(["transform"], [animation.back_transform])
 
                 container.wrapInner "<span class='wodry-flipping' />"
@@ -120,7 +120,7 @@ $.fn.extend
 
                 if animation.isCoplex
                     setTimeout ->
-                        do $(".#{container.context.className} .front-face").remove
+                        do $(".#{container.attr("class")} .front-face").remove
                     , 1
 
             flip = ->
@@ -137,8 +137,8 @@ $.fn.extend
                     back_text_index = -1
 
                 animate(animations[settings.animation],flip_container,front_text,array[back_text_index + 1])
-            
-            setInterval -> 
+
+            setInterval ->
                 do flip
                 do settings.callback
             , (settings.delay + settings.animationDuration)
