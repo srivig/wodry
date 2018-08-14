@@ -1,3 +1,6 @@
+
+### NOTE: This is Customised for WikiRate.org
+
 ##About
 
 Wodry.js is a simple jQuery plugin for a text flipping/rotating written in CoffeeScript. It was inspired by the Adjector.js. Wodry.js does the same things but it has new features that allow you to set animation from animations collection, set your own callback on content flipping, etc.
@@ -64,13 +67,13 @@ Settings object has the following fields:
 List of animations:
 
 - rotateX;
-- rotateY;
-- rotateAll;
-- scaleX;
-- scaleY;
-- scaleAll;
-- clockwise;
-- anticlockwise;
+- ~rotateY;~
+- ~rotateAll;~
+- ~scaleX;~
+- ~scaleY;~
+- ~scaleAll;~
+- ~clockwise;~
+- ~anticlockwise;~
 
 ##[Examples here](http://daynin.github.io/wodry/#examples)
 
