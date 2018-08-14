@@ -7,13 +7,59 @@
   <script src="dist/wodry.js"></script>
   <script>
     $(document).ready(function() {
+
+     function animateHeaderText() {
+
+       var animationDelay = 8000;
+       var animationDuration = 1000;
+       var loopInterval = 0;
+       var staggerInterval = ((animationDelay + animationDuration) / 3) + loopInterval;
+       var fontUsed = 'bold 1.17em Times New Roman';
+       var spanWidthAdjust = 1.8;
+
+       function getTextWidth(text, font) {
+            var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+            var context = canvas.getContext("2d");
+            context.font = font;
+            var metrics = context.measureText(text);
+            return metrics.width;
+        }
+
+        $(".flip-this").each(function (i) {
+          var $item = $(this);
+
+          var longest_word = $item.text().split("|").sort(function(a, b) {
+            return b.length - a.length;
+          })[0];
+
+          var spanWidth = getTextWidth(longest_word, fontUsed) * spanWidthAdjust;
+          var $itemSibling =  $item.siblings(".flip-this-default");
+          $itemSibling.css({"width": spanWidth + "px"}).text(longest_word);
+          $item.css("display", "none");
+
+          setTimeout(function() {
+            $item.attr("style","");
+            $itemSibling.remove();
+            $item.wodry_wikirate({
+              animation: 'rotateX',
+              delay: animationDelay,
+              animationDuration: animationDuration,
+              fontUsed: fontUsed
+            });
+          }, staggerInterval * i);
+        });
+     }
+
+
+
      animateHeaderText();
+
     })
   </script>
 
 </head>
 
-
+<body style="text-align: center; margin: 100px;"
 <div class="pt-5 mt-5">
   <h3 class="white-text font-weight-normal">
 <span>
