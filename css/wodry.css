@@ -6,7 +6,8 @@
     -ms-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    -webkit-transform-origin-x: 50%;
+    transform-origin: 50% 0;
+    /* transform-origin: top 1% -12; */
 }
 .wodry-flipping .front-face, .wodry-flipping .back-face {
     display: inline-block;
@@ -17,8 +18,44 @@
     backface-visibility: hidden;
 }
 .wodry-flipping .front-face {
-    position: absolute;
+    /* position: absolute;
+        left: 25%; */
+        position: absolute;
+left: 0%;
+width: 100%;
+top: -17px;
 }
 .wodry-flipping .back-face {
-    position: relative;
+    /* position: relative;
+    left: 25%; */
+    position: absolute;
+    left: 0%;
+    width: 100%;
+    top: 17px;
+}
+
+.front-face, .back-face {
+    /* width: 150%;
+    text-align: center; */
+}
+
+span {
+    transition: all 400ms ease;
+}
+body {
+  width: 800px;
+  text-align: center;
+  margin: 50px auto;
+}
+
+.flip-this-default{
+  display: inline-block;
+}
+
+.flip-this > span {
+  display: inline-block;
+}
+
+.dotted-bottom-border {
+    border-bottom: 1px dotted #000;
 }

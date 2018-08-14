@@ -5,8 +5,8 @@
   $ = jQuery;
 
   $.fn.extend({
-    wodry: function(config) {
-      var animations, settings, _base, _base1, _base2;
+    wodry_wikirate: function(config) {
+      var animations, settings;
       if (config == null) {
         config = {};
       }
@@ -23,114 +23,48 @@
       if (settings.animation == null) {
         settings.animation = 'rotateY';
       }
+      if (settings.fontUsed == null) {
+        settings.fontUsed = '';
+      }
+      if (settings.spanWidthAdjust == null) {
+        settings.spanWidthAdjust = 1.8;
+      }
       if (settings.callback == null) {
         settings.callback = function() {};
       }
-      if (settings.shift == null) {
-        settings.shift = {};
-      }
-      if ((_base = settings.shift).x == null) {
-        _base.x = 0;
-      }
-      if ((_base1 = settings.shift).y == null) {
-        _base1.y = 0;
-      }
-      if ((_base2 = settings.shift).z == null) {
-        _base2.z = 0;
-      }
-      if (settings.styles == null) {
-        settings.styles = [];
-      }
       animations = {
-        rotateY: {
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotateY(180deg)",
-          action: {
-            transform: " rotateY(180deg)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
         rotateX: {
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotateX(180deg)",
+          front_transform: "",
+          back_transform: "translateY(-22px) rotateX(180deg)",
           action: {
-            transform: " rotateX(180deg)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
-        rotateAll: {
-          isCoplex: true,
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotateX(180deg) rotateY(180deg)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotateX(180deg) rotateY(180deg)",
-          action: {
-            transform: " rotateX(180deg) rotateY(180deg)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
-        scaleX: {
-          isCoplex: true,
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) scaleX(0.1)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) scaleX(0.1)",
-          action: {
-            transform: " scaleX(10)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
-        scaleY: {
-          isCoplex: true,
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) scaleY(0.1)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) scaleY(0.1)",
-          action: {
-            transform: " scaleY(10)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
-        scaleAll: {
-          isCoplex: true,
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) scaleY(0.1) slaleX(0.1)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) scaleY(0.1) scaleX(0.1)",
-          action: {
-            transform: " scaleY(10) scaleX(10)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
-        anticlockwise: {
-          isCoplex: true,
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotate3d(100,40,-80,180deg)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotate3d(100,40,-80,180deg)",
-          action: {
-            transform: " rotate3d(100,40,-80,180deg)",
-            transition: " " + settings.animationDuration + "ms"
-          }
-        },
-        clockwise: {
-          isCoplex: true,
-          front_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotate3d(40,100,80,180deg)",
-          back_transform: "translate3d(" + settings.shift.x + "px," + settings.shift.y + "px," + settings.shift.z + "px) rotate3d(40,100,80,180deg)",
-          action: {
-            transform: " rotate3d(40,100,80,180deg)",
+            transform: "translateY(0px) rotateX(180deg)",
             transition: " " + settings.animationDuration + "ms"
           }
         }
       };
       return this.map(function() {
-        var animate, array, back_style, flip, flip_container, front_style, next_style_index, prefixer, style_index;
+        var animate, array, back_style, flip, flip_container, front_style, getTextWidth, longest_word, prefixer, spanWidth, style_index;
         flip_container = $(this);
         array = [];
         $.each(flip_container.text().split(settings.separator), function(key, value) {
           return array.push(value);
         });
         style_index = 0;
-        if (settings.styles.length > 0) {
-          flip_container.html("<span class='" + settings.styles[0] + "'>" + array[0] + "</span>");
-        } else {
-          flip_container.text(array[0]);
-        }
-        next_style_index = function() {
-          return style_index = (style_index + 1) % settings.styles.length;
-        };
         front_style = "front-face";
         back_style = "back-face";
+        longest_word = array.sort(function(a, b) {
+          return b.length - a.length;
+        })[0];
+        getTextWidth = function(text, font) {
+          var canvas, context, metrics;
+          canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+          context = canvas.getContext('2d');
+          context.font = font;
+          metrics = context.measureText(text);
+          return metrics.width;
+        };
+        spanWidth = getTextWidth(longest_word, settings.fontUsed) * 1.8;
+        flip_container.html("<span style='min-width: " + spanWidth + "px'>" + array[0] + "</span>");
         prefixer = function(properties, values) {
           var i, moz, o, propHash, property, result, value, webkit, _i, _len, _ref;
           result = {};
@@ -159,19 +93,10 @@
           $("." + (container.attr("class")) + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
           $("<span class='" + back_style + "'>" + nextText + "</span>").appendTo(container);
           $("." + (container.attr("class")) + " .back-face").css(prefixer(["transform"], [animation.back_transform]));
-          container.wrapInner("<span class='wodry-flipping' />").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
-          if (animation.isCoplex) {
-            return setTimeout(function() {
-              return $("." + (container.attr("class")) + " .front-face").remove();
-            }, 1);
-          }
+          return container.wrapInner("<span class='wodry-flipping' style='min-width: " + spanWidth + "px'/>").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
         };
         flip = function() {
           var back_text_index, front_text;
-          if (settings.styles.length > 0) {
-            front_style = "front-face " + settings.styles[style_index];
-            back_style = "back-face " + settings.styles[next_style_index()];
-          }
           if (flip_container.find(".back-face").length > 0) {
             flip_container.html(flip_container.find(".back-face").html());
           }

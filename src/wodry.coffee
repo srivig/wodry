@@ -1,73 +1,22 @@
 $ = jQuery
 
 $.fn.extend
-    wodry : (config = {}) ->
+    wodry_wikirate : (config = {}) ->
         settings = $.extend({}, config)
         settings.separator ?= '|'
         settings.delay ?= 2000
         settings.animationDuration ?= 500
         settings.animation ?= 'rotateY'
+        settings.fontUsed ?= ''
+        settings.spanWidthAdjust ?= 1.8
         settings.callback ?= ->
-        settings.shift ?= {}
-        settings.shift.x ?= 0
-        settings.shift.y ?= 0
-        settings.shift.z ?= 0
-        settings.styles ?= []
 
         animations =
-            rotateY:
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotateY(180deg)"
-                action:
-                    transform: " rotateY(180deg)"
-                    transition:" #{settings.animationDuration}ms"
             rotateX:
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotateX(180deg)"
+                front_transform: ""
+                back_transform: "translateY(-22px) rotateX(180deg)"
                 action:
-                    transform: " rotateX(180deg)"
-                    transition:" #{settings.animationDuration}ms"
-            rotateAll:
-                isCoplex: true
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotateX(180deg) rotateY(180deg)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotateX(180deg) rotateY(180deg)"
-                action:
-                    transform: " rotateX(180deg) rotateY(180deg)"
-                    transition:" #{settings.animationDuration}ms"
-            scaleX:
-                isCoplex: true
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) scaleX(0.1)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) scaleX(0.1)"
-                action:
-                    transform: " scaleX(10)"
-                    transition:" #{settings.animationDuration}ms"
-            scaleY:
-                isCoplex: true
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) scaleY(0.1)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) scaleY(0.1)"
-                action:
-                    transform: " scaleY(10)"
-                    transition:" #{settings.animationDuration}ms"
-            scaleAll:
-                isCoplex: true
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) scaleY(0.1) slaleX(0.1)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) scaleY(0.1) scaleX(0.1)"
-                action:
-                    transform: " scaleY(10) scaleX(10)"
-                    transition:" #{settings.animationDuration}ms"
-            anticlockwise:
-                isCoplex: true
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotate3d(100,40,-80,180deg)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotate3d(100,40,-80,180deg)"
-                action:
-                    transform: " rotate3d(100,40,-80,180deg)"
-                    transition:" #{settings.animationDuration}ms"
-            clockwise:
-                isCoplex: true
-                front_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotate3d(40,100,80,180deg)"
-                back_transform: "translate3d(#{settings.shift.x}px,#{settings.shift.y}px,#{settings.shift.z}px) rotate3d(40,100,80,180deg)"
-                action:
-                    transform: " rotate3d(40,100,80,180deg)"
+                    transform: "translateY(0px) rotateX(180deg)"
                     transition:" #{settings.animationDuration}ms"
 
         @map ->
@@ -75,17 +24,21 @@ $.fn.extend
             array = []
             $.each(flip_container.text().split(settings.separator), (key, value) -> array.push value)
             style_index = 0
-
-            if settings.styles.length > 0
-                flip_container.html "<span class='#{settings.styles[0]}'>#{array[0]}</span>"
-            else
-                flip_container.text array[0]
-
-            next_style_index = ->
-                style_index = (style_index + 1) % settings.styles.length
-
             front_style = "front-face"
             back_style = "back-face"
+            longest_word = array.sort((a, b) ->
+              b.length - (a.length)
+            )[0]
+
+            getTextWidth = (text, font) ->
+              canvas = getTextWidth.canvas or (getTextWidth.canvas = document.createElement('canvas'))
+              context = canvas.getContext('2d')
+              context.font = font
+              metrics = context.measureText(text)
+              metrics.width
+
+            spanWidth = getTextWidth(longest_word, settings.fontUsed) * 1.8
+            flip_container.html "<span style='min-width: #{spanWidth}px'>#{array[0]}</span>"
 
             prefixer = (properties, values) ->
                 result = {}
@@ -115,19 +68,10 @@ $.fn.extend
                 $ ".#{container.attr("class")} .back-face"
                     .css prefixer(["transform"], [animation.back_transform])
 
-                container.wrapInner "<span class='wodry-flipping' />"
+                container.wrapInner "<span class='wodry-flipping' style='min-width: #{spanWidth}px'/>"
                     .find(".wodry-flipping").hide().show().css prefixer(["transform","transition"],[animation.action.transform,animation.action.transition])
 
-                if animation.isCoplex
-                    setTimeout ->
-                        do $(".#{container.attr("class")} .front-face").remove
-                    , 1
-
             flip = ->
-                if settings.styles.length > 0
-                    front_style = "front-face " + settings.styles[style_index]
-                    back_style = "back-face " + settings.styles[next_style_index()]
-
                 if flip_container.find(".back-face").length > 0
                     flip_container.html do flip_container.find(".back-face").html
 
@@ -138,7 +82,9 @@ $.fn.extend
 
                 animate(animations[settings.animation],flip_container,front_text,array[back_text_index + 1])
 
+            # setTimeout ->
             setInterval ->
-                do flip
-                do settings.callback
+              do flip
+              do settings.callback
             , (settings.delay + settings.animationDuration)
+            # , (settings.staggerInterval)
