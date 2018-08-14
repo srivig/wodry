@@ -16,7 +16,7 @@ $.fn.extend
                 front_transform: ""
                 back_transform: "rotateX(180deg)"
                 action:
-                    transform: "translateY(1rem) rotateX(180deg)"
+                    transform: "translateY(2rem) rotateX(180deg)"
                     transition:" #{settings.animationDuration}ms"
 
         @map ->
@@ -68,7 +68,7 @@ $.fn.extend
                 $ ".#{container.attr("class")} .back-face"
                     .css prefixer(["transform"], [animation.back_transform])
 
-                container.wrapInner "<span class='wodry-flipping' style='min-width: #{spanWidth}px; top: -0.5rem;'/>"
+                container.wrapInner "<span class='wodry-flipping' style='min-width: #{spanWidth}px; top: -1.5rem;'/>"
                     .find(".wodry-flipping").hide().show().css prefixer(["transform","transition"],[animation.action.transform,animation.action.transition])
 
             flip = ->
