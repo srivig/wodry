@@ -37,7 +37,7 @@
           front_transform: "",
           back_transform: "rotateX(180deg)",
           action: {
-            transform: "translateY(-10px) rotateX(180deg)",
+            transform: "translateY(1rem) rotateX(180deg)",
             transition: " " + settings.animationDuration + "ms"
           }
         }
@@ -93,7 +93,7 @@
           $("." + (container.attr("class")) + " .front-face").css(prefixer(["transform"], [animation.front_transform]));
           $("<span class='" + back_style + "'>" + nextText + "</span>").appendTo(container);
           $("." + (container.attr("class")) + " .back-face").css(prefixer(["transform"], [animation.back_transform]));
-          return container.wrapInner("<span class='wodry-flipping' style='min-width: " + spanWidth + "px'/>").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
+          return container.wrapInner("<span class='wodry-flipping' style='min-width: " + spanWidth + "px; top: -0.5rem;'/>").find(".wodry-flipping").hide().show().css(prefixer(["transform", "transition"], [animation.action.transform, animation.action.transition]));
         };
         flip = function() {
           var back_text_index, front_text;
