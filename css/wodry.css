@@ -39,23 +39,10 @@ top: -17px;
     text-align: center; */
 }
 
-span {
-    transition: all 400ms ease;
-}
-body {
-  width: 800px;
-  text-align: center;
-  margin: 50px auto;
-}
-
 .flip-this-default{
   display: inline-block;
 }
 
 .flip-this > span {
   display: inline-block;
-}
-
-.dotted-bottom-border {
-    border-bottom: 1px dotted #000;
 }
