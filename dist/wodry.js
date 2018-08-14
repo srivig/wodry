@@ -35,9 +35,9 @@
       animations = {
         rotateX: {
           front_transform: "",
-          back_transform: "translateY(-22px) rotateX(180deg)",
+          back_transform: "rotateX(180deg)",
           action: {
-            transform: "translateY(0px) rotateX(180deg)",
+            transform: "translateY(-10px) rotateX(180deg)",
             transition: " " + settings.animationDuration + "ms"
           }
         }
@@ -63,7 +63,7 @@
           metrics = context.measureText(text);
           return metrics.width;
         };
-        spanWidth = getTextWidth(longest_word, settings.fontUsed) * 1.8;
+        spanWidth = getTextWidth(longest_word, settings.fontUsed) * settings.spanWidthAdjust;
         flip_container.html("<span style='min-width: " + spanWidth + "px'>" + array[0] + "</span>");
         prefixer = function(properties, values) {
           var i, moz, o, propHash, property, result, value, webkit, _i, _len, _ref;

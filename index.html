@@ -10,12 +10,12 @@
 
      function animateHeaderText() {
 
-       var animationDelay = 8000;
+       var animationDelay = 1000;
        var animationDuration = 1000;
        var loopInterval = 0;
        var staggerInterval = ((animationDelay + animationDuration) / 3) + loopInterval;
        var fontUsed = 'bold 1.17em Times New Roman';
-       var spanWidthAdjust = 1.8;
+       var spanWidthAdjust = 2.8;
 
        function getTextWidth(text, font) {
             var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
@@ -44,7 +44,8 @@
               animation: 'rotateX',
               delay: animationDelay,
               animationDuration: animationDuration,
-              fontUsed: fontUsed
+              fontUsed: fontUsed,
+              spanWidthAdjust: spanWidthAdjust
             });
           }, staggerInterval * i);
         });
@@ -56,6 +57,16 @@
 
     })
   </script>
+  <style>
+    h3 {
+      font-size: 1.75rem;
+    }
+
+    .dotted-bottom-border {
+        border-bottom: 1px dotted #000;
+    }
+
+  </style>
 
 </head>
 

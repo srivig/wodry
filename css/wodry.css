@@ -21,9 +21,9 @@
     /* position: absolute;
         left: 25%; */
         position: absolute;
-left: 0%;
-width: 100%;
-top: -17px;
+  left: 0%;
+  width: 100%;
+    top: -0.9em;
 }
 .wodry-flipping .back-face {
     /* position: relative;
@@ -31,7 +31,7 @@ top: -17px;
     position: absolute;
     left: 0%;
     width: 100%;
-    top: 17px;
+    top: -0.6em;
 }
 
 .front-face, .back-face {
@@ -45,4 +45,5 @@ top: -17px;
 
 .flip-this > span {
   display: inline-block;
+  transition: all 0.5s ease;
 }
